@@ -1,0 +1,829 @@
+/*  
+	CSS-Stylesheet für das XSLT-Stylesheet der eEB-Browseranwendung zur Anzeige von elektronischen Empfangsbekenntnissen
+    Version 341.1.1 (August 2023); erstellt von der XJustiz-Pflegestelle
+*/
+
+@media screen {
+
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	html {
+		height: 100%;
+		box-sizing: border-box;
+		font-size: 100%;
+	}
+
+	body {
+		font-family: Arial, sans-serif;
+		font-size: 1rem;
+		font-weight: normal;
+		text-align: left;
+		color: #000;
+		background-color: #fff;
+		margin: 2em;
+		padding-bottom: 4em;
+	}
+	
+	main {
+		display: block; /* fuer IE9-11 noetig; jedoch keine Unterstuetzung mehr */
+	}
+
+	h1 {	
+		font-size: 2rem;
+		font-weight: bold;
+		text-align:	center;
+		margin-bottom: 1.25em;
+	}
+	
+	h1#hauptUeberschriftFehlerbox {	
+		/* nur BrAnwg */
+		display: none;
+	}
+	
+	h2 {
+		font-size: 1.15rem;
+		font-weight: bold;
+		margin-top: 2em;
+	}
+	
+	h2#ueberschrift_buttons {
+		margin-bottom: -2em;
+	}
+	   
+	p {
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+	
+	p#AGITS {
+		/* fuer 'div#box_blkitjustiz': nur BrAnwdg */
+		font-size: 1.3rem; 
+		font-weight: bold; 
+		margin-top: 0.75em;"
+	}
+	
+	p.meldung {
+		font-size: 1.25rem;
+		font-weight: bold;
+	}
+	
+	p.titleKeinJS,
+	p.titleFehlerSeite {
+		/* 'p.titleFehlerSeite': nur BrAnwg */
+		font-weight: bold; 
+		color: #D30000;
+	}
+
+	ul {
+		margin: 1em 0;
+		padding: 0 15px;
+	}
+	
+	li {
+		list-style-type: square;
+	}
+	
+	div {
+		margin: 1em 0;
+	}
+	
+	/* START: Ergaenzungen Browseranwendung */
+	div#startseite {
+		margin: 3em auto 3em auto;
+		width: 650px;
+	}
+
+	div#dateiauswahl_box {
+		margin: 3em auto 0 auto;
+		padding: 15px 20px;
+		border: 4px solid #a3bac1;
+		border-radius: 1em;
+		width: 300px;
+		overflow: hidden !important;
+	}
+	
+	div#dateiauswahl_box label {
+	}
+
+	div#dateiauswahl_box #loadfile {
+		display: inline-block;
+		font-weight: 400;
+		font-size: 1rem;
+		padding: 0.2em 0.1em 0.2em 0.2em;
+		line-height: 1.5;
+		border-radius: .25rem;
+		margin: 0.7em 0 0.2em 0;
+		position: relative;
+		text-overflow: clip; /* fuer Edge */
+	}
+	
+	div#box_blkitjustiz {
+		text-align: center;
+		margin-top: 3em;
+	}
+	/* ENDE: Ergaenzungen Browseranwendung */
+	
+	div.eebAblehnung {
+		display: inline-block;
+		margin: 0;
+		width: 34%;
+	}
+	
+	div#buttons {
+		/* nur BrAnwg */
+		margin-top: 3em;
+	}
+	
+	div#buttons #back {
+		/* nur BrAnwg */
+		margin-top: 1.5em;
+	}
+	
+	div.box {
+		display: block;
+		border-radius: 10px;
+		margin: 0 auto 2em auto;
+		padding: 5px 20px;
+	}
+	
+	/* Zentrale Box: falsche XJustiz-Versionsnummer */
+	div.fehlerBox {
+		color: #c32e04;
+		border: 4px solid #c32e04;
+		max-width: 720px;
+	}
+	
+	div#fehlerBoxKeinJS,
+	div#fehlerBoxLeereSeite, 
+	div#fehlerBoxXMLParserFehler, 
+	div#fehlerBoxFalscheNachricht,
+	div#fehlerBoxKeineXMLDatei {
+		/* 'div#fehlerBox...': nur BrAnwdg */
+		text-align: center;
+		margin: 0 auto 3em auto;
+		border: 2px solid silver;
+		border-radius: 10px;
+		padding: 1em;
+		max-width: 550px;
+	}
+	
+	div#fehlerBoxKeinJS {
+		/* nur BrAnwg */
+		display: block;
+	}
+	
+	div#hinweisBoxUpdateBrowseranwendung,
+	div#fehlerBoxLeereSeite,
+	div#fehlerBoxXMLParserFehler, 
+	div#fehlerBoxFalscheNachricht,
+	div#fehlerBoxKeineXMLDatei {
+		/* nur BrAnwg */
+		display: none;
+	}
+
+	/* Zentrale Box: Aufforderung Pruefung Codelisten-Version oder Update eEB-Browseranwendung */
+	div.hinweisBox {
+		color: #c32e04;
+		border: 4px solid #c32e04;
+		max-width: 760px;
+	}
+	
+	img#BLKITJustiz {
+		width: 54%;
+	}
+	
+	.rahmen {
+		border:	2px solid;
+		padding: 10px;
+	}
+	
+	.fett {
+		font-weight: bold;
+	}
+	
+	.unterstrichen {
+		text-decoration: underline;
+	}
+	   
+	.kursiv { 
+		font-style: italic; /* i.d.R. als 'em' */
+	}
+	   
+	.abstandOben {
+		margin-top: 2em;
+	}
+	
+	.abstandUnten {
+		margin-bottom: 2em;
+	}
+	
+	.textFloatRight {
+		float: right;
+	}
+	
+	.textCenter {
+		text-align: center;
+	}
+	
+	.fehler {
+		color: #D30000;
+	}
+	   
+	.hinweis {
+	}
+		
+	.rot {
+		color: #D30000;
+	}
+	
+	table {  
+		padding: 10px; 
+		border-spacing: 0; 
+		border-collapse: collapse; 
+		border: 2px solid black;
+		empty-cells: show;
+		width: 100%;
+	}
+	
+	table th { 
+		border: 1px solid #000;
+		text-align: center;
+		padding: 5px 12px;  
+		background-color: #D3D3D3;
+	}
+
+	table td { 
+		vertical-align: top; 
+		border: 1px solid #000;
+		padding: 5px 12px;		
+	}
+	
+	table th:first-child,
+	table td:first-child {
+		width: 3%;
+		text-align: center;
+	}
+	
+	table th:nth-child(2),
+	table td:nth-child(2) {
+		width: 20%;
+	}
+	
+	table th:nth-child(3),
+	table td:nth-child(3) {
+		width: 12%;
+		text-align: center;
+	}
+	
+	table th:nth-child(4),
+	table td:nth-child(4) {
+		-ms-hyphens: auto;
+		-moz-hyphens: auto;
+		-webkit-hyphens: auto;
+		hyphens: auto; 
+		word-break: break-all;				
+	}
+	
+	.nobr,
+	.nobr_screen {
+		white-space: nowrap;
+	}
+	
+	.print {
+		display: none;
+	}
+	
+	/* Ergaenzungen Browseranwendung */
+	fieldset {
+		border: 0;
+	}
+	
+	#label_datum {
+		font-size: 1.15rem;
+		font-weight: bold;
+		margin-right: 0.75em;
+		display: inline-block;
+	}
+	
+	#eingabe_datum {
+		padding: 5px;
+		position: relative;
+		top: -2px;
+	}
+	
+	/* Aktenzeichen Absender zum rueckl. eEB */
+	#container_aktenzeichen_empfaenger_hinlEEB {
+		margin-top: 2em;
+	}
+	
+	#label_aktenzeichen_empfaenger_hinlEEB {
+		display: inline-block; 
+		margin-top: 0.3em;
+	}
+	
+	#aktenzeichen_empfaenger_hinlEEB {
+		display: inline-block; 
+		margin-left: 1em;
+		vertical-align: top;
+		margin-top: 0em;
+	}
+	
+	.inputFeld_aktenzeichen {
+		position: relative;
+		padding: 5px;
+		margin-bottom: 1em;
+		width: 19.5em;
+	}
+	/* /Aktenzeichen Absender zum rueckl. eEB */
+	
+	#checkbox_vertreter,
+	#checkbox_ablehnung,
+	#radio1,
+	#radio2,
+	#radio3 {
+		margin-right: 5px;
+	}
+	
+	#vertreter {
+		clear: both;
+	}
+	
+	#eingabe_vertreter {
+		margin-left: 0.9em;
+		margin-top: 1em;
+		padding: 5px;
+		width: 19.5em;
+	}
+	
+	#hrVertreter {
+		margin-top: 2em;
+		margin-bottom: 1.8em;
+	}
+	
+	#ueberschrift_ablehnungsgrund,
+	#container_ablehnungsgruende,
+	#label_stoerungsgrund,
+	#eingabe_stoerungsgrund	{
+		/* initialer Wert */
+		color: gray;
+	}
+	
+	#ueberschrift_ablehnungsgrund {
+		font-weight: bold;
+	}
+	
+	#label_stoerungsgrund {
+		display: inline-block;
+		margin-bottom: 1em;
+	}
+	
+	#eingabe_stoerungsgrund	{
+		padding: 5px;
+	}
+	
+	/* 'Erstelle'/'Speichern' - Buttons */
+	#ueberschrift_buttons {
+		color: #000;
+	}
+	
+	/* Buttons 'Erstelle rueckl. eEB', 'Zurueck zur Dateiauswahl' */
+	#go,
+	#back {
+		padding: 10px;
+		font-weight: bold;
+	}
+	
+	#btnSpeichern {
+		padding: 10px;
+		margin-left: 1em;
+	}
+	
+	.element-invisible {
+		display: none;
+		position: absolute;
+		left: -9000px;
+		height: 0;
+		clip: rect(1px, 1px, 1px, 1px);
+	}
+
+	.element-visible {
+		display: block;
+		position: relativ;
+		height: auto;
+		clip: auto;
+	}
+	/* /Ergaenzungen Browseranwendung */
+	
+}
+	
+@media print {
+	
+	* {
+		margin: 0;
+		padding: 0;
+		background-color: #fff;
+	}
+
+	html {
+		height: 100%;
+		box-sizing: border-box;
+		font-size: 100%;
+	}
+
+	body {
+		font-family: Arial, sans-serif;
+		font-size: 1rem;
+		font-weight: normal;
+		text-align: left;
+		color: #000;
+		background-color: #fff;
+		margin: 2em;
+		padding-bottom: 0em;
+	}
+	
+	main {
+		display: block; /* fuer IE9-11 noetig; jedoch keine Unterstuetzung mehr */
+	}
+
+	h1 {	
+		font-size: 2rem;
+		font-weight: bold;
+		text-align:	center;
+		margin-bottom: 1.25em;
+	}
+	
+	h1#hauptUeberschriftFehlerbox {	
+		/* nur BrAnwg */
+		display: none;
+	}
+	
+	h2 {
+		font-size: 1.15rem;
+		font-weight: bold;
+		margin-top: 1em;
+	}
+	
+	h2#datum  {
+		margin-top: 2em
+	}
+	   
+	p {
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+	
+	p#fehlerAbsatz {
+		/* nur BrAnwdg */
+		margin-left: 1.5em;
+		text-align: left;
+	}
+					 
+	p.meldung {
+		font-size: 1.25rem;
+		font-weight: bold;
+	}
+	
+	p.titleKeinJS,
+	p.titleFehlerSeite {
+		/* 'p.titleFehlerSeite': nur BrAnwg */
+		font-weight: bold; 
+		color: #D30000;
+	}
+	
+	ul {
+		margin: 1em 0;
+		padding: 0 15px;
+	}
+
+	li {
+		list-style-type: square;
+	}
+	
+	div {
+		margin: 1em 0;
+	}
+	
+	div.eebAblehnung {
+		display: inline-block;
+		margin: 0;
+		width: 75%;
+	}
+	
+	div#buttons {
+		/* nur BrAnwg */
+		margin-top: 3em;
+		margin-bottom: -1em;
+	}
+	
+	div.box {
+		display: block;
+		border-radius: 10px;
+		margin: 0 auto 2em auto;
+		padding: 5px 15px;
+		max-width: 75%;
+	}
+	
+	div.fehlerBox {
+		color: #c32e04;
+		border:	2px solid #c32e04;
+		background-color: #fff;
+	}
+	
+	div#fehlerBoxKeinJS,
+	div#fehlerBoxLeereSeite,
+	div#fehlerBoxXMLParserFehler, 
+	div#fehlerBoxFalscheNachricht,
+	div#fehlerBoxKeineXMLDatei {
+		/* 'div#fehlerBox...': nur BrAnwdg */
+		text-align: center;
+		margin: 0 auto 3em auto;
+		border: 2px solid silver;
+		border-radius: 10px;
+		padding: 1em;
+		max-width: 75%;
+	}
+	
+	div#fehlerBoxKeinJS {
+		/* nur BrAnwg */
+		display: block;
+	}
+	
+	div#hinweisBoxUpdateBrowseranwendung,
+	div#fehlerBoxLeereSeite,
+	div#fehlerBoxXMLParserFehler, 
+	div#fehlerBoxFalscheNachricht,
+	div#fehlerBoxKeineXMLDatei {
+		/* nur BrAnwg */
+		display: none;
+	}
+	
+	div.hinweisBox {
+		color: #c32e04;
+		border: 2px solid #c32e04;
+		background-color: #fff;
+		/* max-width: 100%; */
+	}
+	
+	.rahmen {
+		border:	2px solid;
+		padding: 10px;
+	}
+	
+	.fett {
+		font-weight: bold;
+	}
+	
+	.unterstrichen {
+		text-decoration: underline;
+	}
+	   
+	.kursiv { 
+		font-style: italic; /* i.d.R. als 'em' */
+	}
+	   
+	.abstandOben,
+	.abstandObenPrint {
+		margin-top: 2em;
+	}
+	
+	.abstandUnten,
+	.abstandUntenPrint {
+		margin-bottom: 2em;
+	}
+	
+	.textFloatRight {
+		float: right;
+	}
+	
+	.textCenter {
+		text-align: center;
+	}
+	
+	.fehler {
+		color: #D30000;
+	}
+	
+	.hinweis {
+	}
+		
+	.rot {
+		color: #D30000;
+	}
+	
+	table {  
+		padding: 10px; 
+		border-spacing: 0; 
+		border-collapse: collapse; 
+		border: 2px solid black;
+		empty-cells: show;
+		width: 100%;
+	}
+
+	/* nur print */
+	table tr { 
+		page-break-inside: avoid;
+	}
+	
+	@page { 
+		 size: portrait; /* landscape */
+				
+	}
+	/* /nur print */	
+	
+	table th { 
+		position: unset;
+		border: 1px solid #000;
+		background-color: transparent; /* hellgrau: #D3D3D3; */
+		text-align: center;
+		padding: 5px 12px; 
+	}
+	
+	table td { 
+		border: 1px solid #000;
+		vertical-align: top; 
+		padding: 5px 12px;	
+	}
+
+	table th:first-child,
+	table td:first-child {
+		width: 12%;
+		text-align: center;
+	}
+	
+	table th:nth-child(2),
+	table td:nth-child(2) {
+		width: 30%;
+	}
+	
+	table th:nth-child(3),
+	table td:nth-child(3) {
+		width: 12%;
+		text-align: center;
+	}
+	
+	table th:first-child,
+	table td:first-child,
+	table th:nth-child(2),
+	table td:nth-child(2),
+	table th:nth-child(4),
+	table td:nth-child(4) {
+		-ms-hyphens: auto;
+		-moz-hyphens: auto;
+		-webkit-hyphens: auto;
+		hyphens: auto; 
+		word-break: break-all;
+	}
+	
+	.nobr {
+		white-space: nowrap; 
+	}
+	
+	.screen {
+		display: none;
+	}
+	
+	/* Ergaenzungen Browseranwendung */
+	fieldset {
+		border: 0;
+	}
+	
+	#label_datum {
+		font-size: 1.15rem;
+		font-weight: bold;
+		margin-right: 0.75em;
+		display: inline-block;
+	}
+	
+	#eingabe_datum {
+		padding: 5px;
+		position: relative;
+		border: 1px solid black;
+		border-radius: 1px;
+	}
+	
+	/* Aktenzeichen Absender zum rueckl. eEB */
+	#container_aktenzeichen_empfaenger_hinlEEB {
+		margin-top: 2em;
+	}
+	
+	#label_aktenzeichen_empfaenger_hinlEEB {
+		display: inline-block; 
+		margin-top: 0.3em;
+	}
+	
+	#aktenzeichen_empfaenger_hinlEEB {
+		display: inline-block; 
+		margin-left: 1em;
+		vertical-align: top;
+		margin-top: 0em;
+	}
+	
+	.inputFeld_aktenzeichen {
+		position: relative;
+		padding: 5px;
+		margin-bottom: 1em;
+		border: 1px solid black;
+		border-radius: 1px;
+	}
+	/* /Aktenzeichen Absender zum rueckl. eEB */
+	
+	#checkbox_vertreter,
+	#checkbox_ablehnung,
+	#radio1,
+	#radio2,
+	#radio3 {
+		margin-right: 5px;
+	}
+
+	#vertreter {
+		clear: both;
+		margin-top: -1em;
+	}
+
+	#eingabe_vertreter {
+		margin-left: 0.9em;
+		margin-top: 1em;
+		padding: 5px;
+		border: 1px solid black;
+		border-radius: 1px;
+	}
+	
+	#hrVertreter {
+		margin-top: 1em;
+		margin-bottom: 0.8em;
+	}
+	
+	#ueberschrift_ablehnungsgrund,
+	#container_ablehnungsgruende,
+	#label_stoerungsgrund,
+	#eingabe_stoerungsgrund	{
+		/* initialer Wert */
+		color: gray;
+	}
+	
+	#ueberschrift_ablehnungsgrund {
+		font-weight: bold;
+	}
+	
+	#container_stoerungsgrund {
+		/* nur print */
+		margin-top: 0;
+		margin-bottom: 2em
+	}
+	
+	#label_stoerungsgrund {
+		display: inline-block;
+		margin-bottom: 1em;
+	}
+	
+	#eingabe_stoerungsgrund	{
+		padding: 5px;
+		/* nur print */
+		border: 1px solid black;
+	}
+	
+	/* 'Erstelle'/'Speichern' - Buttons */
+	#ueberschrift_buttons {
+		color: #000;
+	}
+	
+	/* Button 'Erstelle rueckl. eEB' */
+	#go {
+		padding: 10px;
+		border: 1px solid black;
+		border-radius: 1px;
+		font-weight: bold;
+	}
+	
+	.go_buttonDisabled_onlyPrint {
+		/* Button ausgrauen */
+		color: #dcdcdc !important;
+		border-color: #dcdcdc !important;
+	}
+	
+	/* Button 'Zurueck zur Dateiauswahl' */
+	#back {
+		display: none;
+	}
+	
+	#btnSpeichern {
+		padding: 10px;
+		margin-left: 1em;
+		border: 1px solid black;
+		border-radius: 1px;
+	}
+	
+	.element-invisible {
+		display: none;
+		position: absolute;
+		left: -9000px;
+		height: 0;
+		clip: rect(1px, 1px, 1px, 1px);
+	}
+	/* /Ergaenzungen Browseranwendung */
+	
+}
+				

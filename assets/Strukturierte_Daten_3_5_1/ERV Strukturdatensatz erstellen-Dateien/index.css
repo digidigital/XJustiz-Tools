@@ -1,0 +1,32 @@
+body{
+	line-height: 1;
+}
+input{
+	height:25px;
+}
+
+#bezug {
+	border-style:solid;
+	border-width:1px;
+	border-color:lightgray;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-bottom:15px;
+}
+#doxml {
+	margin-left:250px;
+	margin-top:50px;
+}
+
+.navbar-header {
+    float: left;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+	border-style:solid;
+	border-width:2px;
+	border-color:gray;
+	background:royalblue;
+	
+}
+.navbar-brand {float:none;}

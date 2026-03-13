@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<!--
+	Startseite der Browseranwendung für die Erstellung des Strukturdatensatzes auf 
+	auf Basis des XJustiz-Strukturdatensatzes in der Version 3.5.1.
+	Version 5.0.2, 4.2025
+-->
+
+
+<html lang="de"><head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<meta charset="utf-8">  
+
+				<script type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/GDS.Gerichte_3.6.json"></script>
+				<script type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/GDS.Polizeibehoerden_1.0.json"></script>
+				<script type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/GDS.Rollenbezeichnung_3.5.json"></script>
+				<script type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/Rechtsformen_2.3.json"></script>
+				<script type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/GDS.Dokumentklasse_1.3.json"></script>
+				<script type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/GDS.Sendungsprioritaet_1.1.json"></script>
+
+
+				<script src="ERV%20Strukturdatensatz%20erstellen-Dateien/jquery-3.6.3.slim.min.js"></script>	
+				<script>try {window.$ = window.jQuery = require('jquery')} catch(e) {};</script>	
+				<script language="javascript" type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/bootstrap.bundle.min.js"></script>
+				<script language="javascript" type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/data.js"></script>
+				<script language="javascript" type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/index.js"></script>
+				<script language="javascript" type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/writeXML.js"></script>
+				<script language="javascript" type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/FileSaver.js"></script>
+				<script language="javascript" type="text/javascript" src="ERV%20Strukturdatensatz%20erstellen-Dateien/moment-with-locales.js"></script>
+
+				<link rel="stylesheet" href="ERV%20Strukturdatensatz%20erstellen-Dateien/bootstrap.min.css"/>
+			    <link rel="stylesheet" href="ERV%20Strukturdatensatz%20erstellen-Dateien/index.css"/> 
+				<title>ERV Strukturdatensatz erstellen</title>
+				</head>
+
+<style>
+.btn-primary {
+  --bs-btn-disabled-opacity:        .30;
+ 
+}
+</style>
+
+
+					<body class="">
+						<noscript>
+							<h1>FEHLER: Eine Javascript-Freigabe ist erforderlich!</h1>
+							<p>Die XJustiz-Nachricht kann ohne Javascript nicht verarbeitet werden. Bitte aktivieren Sie Javascript in Ihrem Browser.</p> 
+							<p><a href="https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/JavaScript_aktivieren">Eine Anleitung dazu finden Sie hier.</a></p>
+						</noscript>
+
+
+						<nav class="navbar navbar-default" role = "navigation">
+							
+								<div class="navbar-header">
+									<div class="navbar-brand">Anwendung für das Erstellen eines strukturierten Datensatzes für die elektronische Kommunikation mit den Gerichten in Version 3.5.1
+										<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hilfeModal">Hilfe</button>
+									</div>
+								</div>
+
+
+
+							
+						</nav>
+
+						<!-- Hilfe Modal -->
+						<div id="hilfeModal" class="modal fade" role="dialog" >
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title">Hilfe</h4>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>Gemäß § 2 Abs. 3 ERVV soll einem elektronischen Dokument, das nach § 130a ZPO bei Gericht eingereicht wird, ein strukturierter maschinenlesbarer Datensatz im XML-Format beigefügt werden. <br/>
+								Diese Browseranwendung ermöglicht die Erstellung eines solchen Datensatzes. Der Datensatz wird nach Eingabe der erforderlichen Angaben auf Ihrem Rechner mit dem Dateinamen xjustiz_nachricht.xml gespeichert. <br/> 
+								Bitte ändern Sie den Dateinamen nicht. <br/>
+								Die Datei muss gemeinsam mit dem/den elektronischen Dokument/en per sicherem Übermittlungsweg oder per EGVP an das Gericht übermittelt werden. <br/>
+								Hinweis: Sofern die Übermittlung per EGVP erfolgt und Schriftformerfordernis besteht, müssen die elektronischen Dokumente qualifiziert elektronisch signiert werden. Die Datei xjustiz_nachricht.xml muss nicht signiert werden. 
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>	
+						
+												<!-- Hilfe Modal -->
+						<div id="duplicateFilename" class="modal fade" role="dialog" >
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title">Fehler</h4>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>Es dürfen keine zwei Dateien mit selben Namen hinzugefügt werden. 
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div id="missingfile" class="modal fade" role="dialog" >
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title">Fehler</h4>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>Zu jedem Dokument muss mindestens eine Datei angegeben werden. 
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="basisnachricht" class="modal fade" role="dialog" >
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title">Wichtig!</h4>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>Es wird eine Nachricht vom Typ GDS.Basisnachricht erstellt.</br></br>Die „nachricht.gds.basisnachricht.0005006“ darf nur verwendet werden, wenn <u><b>keine</b></u> weiteren Anlagen übermittelt werden.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>							
+						
+						
+						<div id="invalidFilename" class="modal fade" role="dialog" >
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title">Fehler</h4>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>Die Länge von Dateinamen darf nur 90 Zeichen inkl. der Dateiendungen betragen.<br/>
+ 										In Dateinamen dürfen nur alle Buchstaben des deutschen Alphabetes einschließlich der Umlaute Ä, ä, Ö, ö, Ü, ü und ß genutzt werden.<br/>
+										Zudem dürfen alle Ziffern und die Zeichen "Unterstrich" und "Minus" genutzt werden.<br/>
+										Punkte sind nur als Trenner zwischen dem Dateinamen und der Dateinamenserweiterung zulässig.
+										Dateien mit den Namen vhn.xml und vhn.xml.p7s müssen vor dem Hinzufügen umbenannt werden. 
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>	
+<div class="container" id="main">
+							
+								<div class="row">	
+									<div class="col"><label align="right" style="width: 200px">Absender*:</label></div>
+									<div class="col"><input id="absender_bez" style="width: 350px" type="text" onkeyup="enable_createXML()"></div>
+									<div class="col"><label align="right" style="width: 260px" >Aktenzeichen:</label></div>
+									<div class="col"><input id="akt_des_abs" align="left" size="25" type="text"/></div>
+								</div>
+								</br>
+								<div class="row" id="empfaengerlabel">	
+									<div class="col"><select id="select_empfaengert" name="select_empfaengert" class="input-xlarge" style="width: 200px"  onchange="checkEmpfaengertyp(this);"  ></select></div>
+									<div class="col" id="empfaenger" ><select id="empfaenger_bez" class="list_instanz " style="width: 350px"></select></div>
+									<div class="col"><label align="right" style="width: 260px">Aktenzeichen*:</label></div>
+									<div class="col"><input type="text" id="akt_des_empf" align="left" size="25" list="akzempfaengerdatalist" onkeyup='enable_createXML()' >
+									<datalist id="akzempfaengerdatalist">
+										<option value="unbekannt" />
+										<option value="neu" />
+									</datalist>
+								</input>	</div>
+								</div>		
+								</br>
+											
+								<div class="row">
+								  <div class="col"><label align="right" style="width: 200px">Sachgebiet*:</label></div>
+								  <div class="col"><select id="sachgebiete_select_modal" style="width: 350px" name="sachgebiete_select_modal"></select></div>
+								  <div class="col"></div>
+								  <div class="col"></div>
+								</div>	
+								</br>
+								<div class="row">	
+ 								<div class="col"><label align="right" style="width: 200px">Sendungspriorität:</label></div>
+								<div class="col"><select id="sendungsprioritaet_select_modal" style="width: 350px" name="sachgebiete_select_modal"></select></div>
+								<div class="col"></div>
+								<div class="col"></div>
+								</div>												
+												
+											
+											<hr class="mt-3 mb-1"/>
+
+												<div class="control-group">
+													<label class="col-form-label-lg">Verfahrensgegenstand:</label>
+													<div class="controls">
+														<table class="table table-striped table-bordered">
+															<thead>
+																<tr>
+																	<th>Es können ein oder mehrere Verfahrensgegenstände, z.B. "Schadensersatz" oder "Diebstahl", angegeben werden.</th>
+																	<th>Aktion</th>
+																</tr>
+															</thead>
+															<tbody id="gegenstandsliste">
+																<tr class="table-primary">
+
+																	<td>
+																		<input id="gegenstand" size="120" type="text" onkeyup="enable_gegenstand_speichern()" >
+																		</td>
+																		<td width="20">
+																			<button type="button" disabled class="btn btn-primary" id="gegenstand_speichern"> + </button>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+
+																<div class="control-group">
+																	<label class="col-form-label-lg">Beteiligte Personen:</label>
+																	<div class="controls">
+																		<table class="table table-striped table-bordered">
+																			<thead>
+																				<tr>
+																					<th>Titel</th>
+																					<th>Namensvorsatz</th>
+																					<th>Vorname</th>
+																					<th>Nachname</th>
+																					<th>Rolle</th>
+																					<th>Aktion</th>
+																				</tr>
+																			</thead>
+																			<tbody id="personliste">
+																				<tr class="table-primary">
+																					<td>
+																						<input id="person_titel" size="5" data-provide="typeahead" type="text">
+																						</td>
+																						<td>
+																							<input id="person_namenvorsatz" size="10" type="text">
+																							</td>
+																							<td>
+																								<input id="person_vorname" size="20" type="text">
+																								</td>
+																								<td>
+																									<input id="person_nachname" size="20" type="text" onkeyup="enable_person_speichern()">
+																									</td>
+
+																									<td align=right>
+																										<select id="select_role_person" name="select_role_person" style="width:350px"></select>
+																									</td>
+																									<td width="20">
+																										<button type="button" disabled class="btn btn-primary" id="person_speichern"> + </button>
+																									</td>
+																								</tr>
+																							</tbody>
+																						</table>
+																					</div>
+
+														<div class="control-group">
+															<label class="col-form-label-lg">Beteiligte Kanzlei: Jeglicher am Verfahren beteiligter Einzelanwalt oder beteiligte Sozietät ist in diesem Element einzutragen und nicht in „Beteiligte Organisationen"</label>
+															<div class="controls">
+																<table class="table table-striped table-bordered">
+																	<thead>
+																		<tr>
+																			<th>Kanzleiname</th>
+																			<th>Rechtsform</th>
+																			<th>Kanzleiform</th>
+																			<th>Rolle</th>
+																			<th>Aktion</th>
+																		</tr>
+																	</thead>
+																	<tbody id="kanzleiliste">
+																		<tr class="table-primary">
+																			<td width="200"><input id="kanzleiname" size="40" type="text" onkeyup="enable_ra_speichern()"></td>
+																				<td width="200"><select id="select_rechtsform" name="select_rechtsform" style="width:250px"></select></td>
+																				<td width="100" ><select id="select_kanzleiform" name="select_kanzleiform" style="width:150px" ></select></td>
+																				<td align=right><select id="select_role_ra" name="select_role_ra" style="width:350px"></select></td>
+																				<td width="20"><button type="button" disabled class="btn btn-primary" id="ra_speichern"> + </button></td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+
+
+																					<div class="control-group">
+																						<label class="col-form-label-lg">Beteiligte Organisationen: Hier werden alle übrigen Beteiligten aufgeführt wie Gesellschaften, Vereine, Bruchteilsgemeinschaften etc.</label>
+																						<div class="controls">
+																							<table class="table table-striped table-bordered">
+																								<thead>
+																									<tr>
+																										<th>Bezeichnung</th>
+																										<th>Rolle</th>
+																										<th>Aktion</th>
+																									</tr>
+																								</thead>
+																								<tbody id="orgaliste">
+																									<tr class="table-primary">
+																										<td width="900">
+																											<input id="orga_bez" size="70" type="text" onkeyup="enable_orga_speichern()">
+																											</td>
+																											<td align=right>
+																												<select id="select_role_orga" name="select_role_orga" style="width:350px" class="input-xlarge"></select>
+																											</td>
+																											<td width="20">
+																												<button type="button" disabled class="btn btn-primary" id="orga_speichern"> + </button>
+																											</td>
+																										</tr>
+																									</tbody>
+																								</table>
+																							</div>
+
+
+																							<div class="control-group">
+																								<label class="col-form-label-lg">Übermittelte Dokumente:</label>
+																								<div class="controls">
+																								<div class="row">
+																								<div class="table-responsive col-md-6">
+																									<table id="my-table-id"class="table table-striped table-bordered table-hover" style="float:left;">
+																										<thead>
+																										<tr>
+																										<th colspan="3">Liste der Dokumente</th>
+																										</tr>
+																											<tr>
+																												<th>Anzeigename des Dokuments</th>
+																												<th>Dokumentklasse</th>
+																												<th>Aktion</th>
+																											</tr>
+																										</thead>
+																										<tbody id="anhangliste">
+																											<tr class="table-primary">
+
+																												<td>
+																													<input id="anzeigename" onkeyup="checkAnzeigename()" size="25" type="text">
+
+																													</td>
+																													<td>
+																														<select id="dokumententyp_select_modal" name="dokumententyp_select_modal" class="input-xlarge"></select>
+																													</td>
+																													<td>
+																														<button type="button" disabled class="btn btn-primary" id="anhang_speichern">+</button>
+																													</td>
+
+																												</tr>
+																											</tbody>
+																										</table>
+																										
+</div>
+<div class="table-responsive col-md-6">
+
+																										<table id="my-table-id22" class="table table-striped table-bordered">
+																											<thead>
+																												<tr>
+																													<th colspan="3" id="ggggg">Dateien zum Dokument: Kein Dokument ausgewählt</th>
+
+																												</tr>
+																												<tr>
+																													<th>Datei</th>
+																													<th>Bestandteil</th>
+																													<th>Aktion</th>
+																												</tr>
+																											</thead>
+																											<tbody id="dateiliste">
+																												<tr class="table-primary">
+
+																													<td>
+																														<input disabled id="fileElementId" name="files" type="file" onchange="checkDateiAuswahl()">
+																														</td>
+																														<td>
+
+																															<select id="bestandteil_select_modal" name="bestandteil_select_modal" class="input-xlarge">
+																															</td>
+
+
+																															<td>
+																																<button type="button" disabled class="btn btn-primary" id="Datei_speichern">+</button>
+																															</td>
+																														</tr>
+																													</tbody>
+																												</table>
+
+																												</div>
+																												</div>
+																											</div>
+
+																										</div>
+
+
+																										<div class="control-group">
+																											<label class="col-form-label"></label>
+																											<div class="controls">
+																												<button id="createXML" type="button" class="btn btn-primary" disabled onclick="createXML()">ERV Strukturdatensatz erzeugen</button>
+																												<button type="button" class="btn btn-danger" onclick="alleFelderReseten()">Alle Eingaben zurücksetzen</button>
+
+																											</br></br>
+
+																										<table id="my-table-id3" class="table table-striped table-bordered" style="display: none;">
+																											<td>Sie können alle Dateien inkl. xjustiz und govello.txt Steuerdatei direkt in den Ordner für den Fachdatenimport kopieren.</td>
+																										<td>Pfad zur Datei userid.txt : <input id="useridPath" size="40" type="text"> <input id="useridDir" name="useridDir" type="file" onchange="pickUserIDPath()"></td>
+																												<td><button id="buttonCopyFiles" type="button" class="btn btn-primary" onclick="TestNode()">Kopieren</button></td>
+																											</table>
+
+
+
+																										</div>
+																									</div>
+																									<label>Alle mit einem (*) markierten Felder sind Pflichtfelder</label>
+																								</div>
+
+
+
+
+
+																							</div>
+
+																						</div>
+
+																					</body>
+
+
+																				</html>

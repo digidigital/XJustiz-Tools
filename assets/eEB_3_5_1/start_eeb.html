@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+    Startseite der Browseranwendung für das Visualisieren und Erstellen von 
+    elektronischen Empfangsbekenntnissen auf Basis des XJustiz-Standards.
+    Die Browseranwendung verarbeitet Instanzen von XJustiz 3.3.1, 3.41 und 3.5.1.
+	Version 351.1.0; erstellt von der XJustiz-Pflegestelle
+-->
+<html lang="de">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Elektronisches Empfangsbekenntnis</title>
+        <link rel="stylesheet" type="text/css" href="styles/eeb_aktiv_351_1.css"/>
+		
+    </head>
+    <body>
+		<main id="main">
+			
+			<noscript>
+				<div id="fehlerBoxKeinJS">
+					<p class="titleKeinJS">FEHLER: Eine Javascript-Freigabe ist erforderlich!</p>
+					<p>Die XJustiz-Nachricht kann ohne Javascript nicht verarbeitet werden.<br />Bitte aktivieren Sie Javascript in Ihrem Browser.</p>
+				</div>
+			</noscript>
+			
+			<!-- FEHLERBOXEN (nur zu Datei-Ladefehlern) -->
+			<h1 id="hauptUeberschriftFehlerbox">Empfangsbekenntnis</h1>
+			
+			<div id="fehlerBoxLeereSeite">
+					<p class="titleFehlerSeite">FEHLER:</p>
+
+					<p>Bitte prüfen Sie, ob Sie die Browser-Einstellungen entsprechend den Angaben in der Anleitung vorgenommen haben.</p>
+
+					<p>Sollten die Einstellungen nicht zum gewünschten Ergebnis führen, wenden Sie sich bitte an Ihren Administrator/IT-Support.</p>
+					
+					<form action="start_eeb.html" id="zurueck" method="post">
+						<button id="back" type="submit">Zurück zur Dateiauswahl</button>
+					</form>									  
+			</div>
+			
+			<div id="fehlerBoxXMLParserFehler">
+					<p class="titleFehlerSeite">FEHLER:</p>
+
+					<p>Es handelt sich bei der ausgewählten XJustiz-Nachricht um keine gültige ('wohlgeformte') XML-Datei! Die eingelesene XJustiz-Nachricht kann aufgrund eines Syntax-Fehlers nicht angezeigt werden.</p>
+					
+					<form action="start_eeb.html" id="zurueck" method="post">
+						<button id="back" type="submit">Zurück zur Dateiauswahl</button>
+					</form>									  
+			</div>
+			
+			<div id="fehlerBoxFalscheNachricht">
+					<p class="titleFehlerSeite">FEHLER:</p>
+
+					<p>Es wurde kein hinlaufendes eEB als XJustiz-Nachricht, für die das elektronische Empfangsbekenntnis (eEB) angefordert wird, ausgewählt!</p>
+					
+					<form action="start_eeb.html" id="zurueck" method="post">
+						<button id="back" type="submit">Zurück zur Dateiauswahl</button>
+					</form>									  
+			</div>
+			
+			<div id="fehlerBoxKeineXMLDatei">
+					<p class="titleFehlerSeite">FEHLER: falsches Dateiformat</p>
+
+					<p>Bitte wählen Sie eine XJustiz-Nachricht im .xml-Dateiformat aus.</p>
+					
+					<form action="start_eeb.html" id="zurueck" method="post">
+						<button id="back" type="submit">Zurück zur Dateiauswahl</button>
+					</form>									  
+			</div>
+			<!-- /FEHLERBOXEN (nur zu Datei-Ladefehlern) -->
+
+			
+			<!-- DATEI-AUSWAHL -->
+			<div id="startseite" class="screen">
+			
+				<h1>Browseranwendung zur Erstellung des <br />elektronischen Empfangsbekenntnisses</h1>
+			
+				<!-- Datei-Auswahlbox -->
+				<div id="dateiauswahl_box">
+				
+					<label for="myfile">Bitte eine hinlaufende XJustiz-Nachricht<br />(eEB) im XML-Format auswählen:</label>
+					<input type="file" name="loadfile" id="loadfile" accept=".xml" />
+				
+				</div>
+				
+				<div id="box_blkitjustiz">
+				
+					<img id="BLKITJustiz" src="img/BLKITJustiz.png" />
+					
+					<p id="AGITS">Arbeitsgruppe<br />IT-Standards in der Justiz</p>
+
+				</div>
+
+			</div>
+			
+			<script>
+				
+				'use strict';
+					
+				// Liest die ausgewaehlte Datei ein und startet die Folgeseite per Funktion 'aufbauHinlaufendesEEB()'							 
+				document.getElementById('loadfile').addEventListener('change', function() {
+
+					var fileInput = document.getElementById("loadfile");
+					var files = fileInput.files;
+					
+					let filename = files[0].name;
+					const filenameSplitArray = filename.split(".");
+
+					// Fehler: Es wurde keine .xml - Datei ausgewaehlt!
+					if (!(filenameSplitArray.length > 0 && filenameSplitArray[filenameSplitArray.length - 1] == "xml")) {
+						document.getElementById('startseite').style.display = 'none';
+						document.getElementById('hauptUeberschriftFehlerbox').style.display = 'block';
+						document.getElementById('fehlerBoxKeineXMLDatei').style.display = 'block';
+					} else {
+						var fr = new FileReader();		
+						/* FileReader.readAsText(): Startet den Lesevorgang und liest das spezifizierte File und wenn der Lesevorgang abgeschlossen ist, enthält 'result' die Daten als Text-String */					
+						fr.readAsText(this.files[0]);
+						fr.onload = function() { aufbauHinlaufendesEEB(fr.result); }
+					}
+
+				});
+
+			</script>
+			<!-- /DATEI-AUSWAHL -->
+			
+			
+			<!-- FOLGESEITE (Hier wird die Folgeseite eingehaengt) -->
+			<div id="eeb"></div>
+			
+			<script type="text/javascript" src="scripts/eeb_aktiv_351_1.js"></script>
+
+		</main>
+	</body>
+</html>

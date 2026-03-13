@@ -1,0 +1,25 @@
+# XJustiz-Tools – Python-Abhängigkeiten
+#
+# PySide6 vollständig installieren (inkl. WebEngine-Subpaket).
+# WICHTIG: Nicht "PySide6-Essentials" verwenden – QtWebEngine ist in
+# "PySide6-Addons" enthalten und wird beim Gesamtpaket mitinstalliert.
+#
+# LGPL-Hinweis:
+# PySide6 wird unter LGPL v3 lizenziert. Für die Nutzung in
+# proprietären Anwendungen gelten die Bedingungen der LGPL:
+# - Die Qt-Bibliotheken müssen als dynamisch gelinkte .dll-Dateien
+#   bereitgestellt werden (PyInstaller folder-mode erfüllt dies).
+# - Der Nutzer muss die Qt-Bibliotheken austauschen können.
+# - Ein Verweis auf die Lizenz muss in der Anwendung vorhanden sein
+#   (siehe Über-Dialog).
+#
+# Installation:
+#   pip install -r requirements.txt
+#
+# Build-Abhängigkeit (nicht zur Laufzeit):
+#   pip install pyinstaller
+
+PySide6>=6.6.0
+
+# Build-Tool (nur für Packaging, optional hier aufgeführt)
+pyinstaller>=6.0.0
